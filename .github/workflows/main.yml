@@ -39,13 +39,13 @@ jobs:
         key: lucee-downloads-${{ env.luceeVersion }}
         restore-keys: |
           lucee-downloads
-    - name: Build extension-jdbc-oracle with Ant
+    - name: Build extension-mongodb with Ant
       run: ant -noinput -verbose -buildfile build.xml
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
         name: mongodb-lex
-        path: dist/*.lex
+        path: dist/modern/*.lex
     - name: Checkout Lucee
       uses: actions/checkout@v2
       with:
@@ -57,7 +57,7 @@ jobs:
         webroot: ${{ github.workspace }}/lucee/test
         execute: /bootstrap-tests.cfm
         luceeVersion: ${{ env.luceeVersion }}
-        extensionDir: ${{ github.workspace }}/dist
+        extensionDir: ${{ github.workspace }}/dist/modern
       env:
         testLabels: mongodb
         MONGODB_SERVER: localhost
